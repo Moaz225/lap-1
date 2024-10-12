@@ -1,0 +1,46 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def generate_and_analyze_matrix(m, n):
+    """
+    Generates an m x n matrix with values drawn from a normal distribution.
+    Computes the mean and variance for each row and column, and plots histograms.
+    
+    Parameters:
+    m (int): Number of rows.
+    n (int): Number of columns.
+    """
+    # Generate the matrix
+    matrix = np.random.normal(size=(m, n))
+
+    # Compute means and variances
+    row_means = np.mean(matrix, axis=1)
+    row_variances = np.var(matrix, axis=1)
+    column_means = np.mean(matrix, axis=0)
+    column_variances = np.var(matrix, axis=0)
+
+    # Print results
+    print("Row means:", row_means)
+    print("Row variances:", row_variances)
+    print("Column means:", column_means)
+    print("Column variances:", column_variances)
+
+    # Plot histograms for rows
+    plt.figure(figsize=(10, 4))
+    plt.subplot(1, 2, 1)
+    for i, row in enumerate(matrix):
+        plt.hist(row, bins=10, alpha=0.5, label=f'Row {i+1}')
+    plt.title('Histogram of Rows')
+    plt.legend()
+
+    # Plot histograms for columns
+    plt.subplot(1, 2, 2)
+    for j, col in enumerate(matrix.T):  # matrix.T transposes the matrix
+        plt.hist(col, bins=10, alpha=0.5, label=f'Column {j+1}')
+    plt.title('Histogram of Columns')
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+# Example usage
+generate_and_analyze_matrix(3, 4)
