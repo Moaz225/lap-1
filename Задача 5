@@ -1,0 +1,43 @@
+import numpy as np
+
+def chess(m, n, a, b):
+    """
+    Fills an m x n matrix in a checkerboard pattern with numbers a and b.
+
+    Parameters:
+    m (int): Number of rows.
+    n (int): Number of columns.
+    a (any): First value to fill.
+    b (any): Second value to fill.
+
+    Returns:
+    np.array: Checkerboard matrix.
+    """
+    matrix = np.zeros((m, n), dtype=type(a))  # Assuming a and b are of the same type
+    matrix[::2, ::2] = a
+    matrix[1::2, 1::2] = a
+    matrix[::2, 1::2] = b
+    matrix[1::2, ::2] = b
+    return matrix
+
+def test_chess():
+    # Test 1: Standard 3x3 matrix
+    expected1 = np.array([[1, 0, 1], [0, 1, 0], [1, 0, 1]])
+    assert np.array_equal(chess(3, 3, 1, 0), expected1), "Test 1 Failed"
+
+    # Test 2: 2x4 matrix
+    expected2 = np.array([[1, 0, 1, 0], [0, 1, 0, 1]])
+    assert np.array_equal(chess(2, 4, 1, 0), expected2), "Test 2 Failed"
+
+    # Test 3: Single row
+    expected3 = np.array([[1, 0]])
+    assert np.array_equal(chess(1, 2, 1, 0), expected3), "Test 3 Failed"
+
+    # Test 4: Single column
+    expected4 = np.array([[1], [0], [1]])
+    assert np.array_equal(chess(3, 1, 1, 0), expected4), "Test 4 Failed"
+
+    print("All tests passed!")
+
+# Run the tests
+test_chess()
