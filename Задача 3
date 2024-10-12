@@ -1,0 +1,43 @@
+def unique_rows(mat):
+    """
+    Returns a list of sets, each containing unique elements from each row of the matrix.
+
+    Parameters:
+    mat (list of list): Input matrix.
+
+    Returns:
+    list of set: Unique elements per row.
+    """
+    return [set(row) for row in mat]
+
+def unique_columns(mat):
+    """
+    Returns a list of sets, each containing unique elements from each column of the matrix.
+
+    Parameters:
+    mat (list of list): Input matrix.
+
+    Returns:
+    list of set: Unique elements per column.
+    """
+    return [set(column) for column in zip(*mat)]
+
+def test_unique_elements():
+    # Test 1: Unique elements in rows and columns
+    mat1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    expected_rows1 = [{1, 2, 3}, {4, 5, 6}, {7, 8, 9}]
+    expected_columns1 = [{1, 4, 7}, {2, 5, 8}, {3, 6, 9}]
+    assert unique_rows(mat1) == expected_rows1, "Row test failed"
+    assert unique_columns(mat1) == expected_columns1, "Column test failed"
+
+    # Test 2: Repeated elements in rows and columns
+    mat2 = [[1, 1, 1], [2, 2, 2], [3, 3, 3]]
+    expected_rows2 = [{1}, {2}, {3}]
+    expected_columns2 = [{1, 2, 3}]
+    assert unique_rows(mat2) == expected_rows2, "Row test with repeats failed"
+    assert unique_columns(mat2) == expected_columns2, "Column test with repeats failed"
+
+    print("All tests passed!")
+
+# Run the tests
+test_unique_elements()
