@@ -1,0 +1,48 @@
+import numpy as np
+
+def one_hot_encode(vector):
+    """
+    One-hot encodes a vector of integer class labels.
+    
+    Parameters:
+    vector (list or np.array): Vector containing integer class labels.
+    
+    Returns:
+    np.array: A matrix of one-hot encoded vectors.
+    """
+    n_classes = max(vector) + 1
+    return np.eye(n_classes)[vector]
+
+def test_one_hot_encode():
+    # Test 1: Simple vector
+    vector1 = [0, 2, 3, 0]
+    expected1 = np.array([
+        [1, 0, 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1],
+        [1, 0, 0, 0]
+    ])
+    assert np.array_equal(one_hot_encode(vector1), expected1), "Test 1 Failed"
+
+    # Test 2: Vector with consecutive numbers
+    vector2 = [1, 2, 3]
+    expected2 = np.array([
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1]
+    ])
+    assert np.array_equal(one_hot_encode(vector2), expected2), "Test 2 Failed"
+
+    # Test 3: Vector with single class
+    vector3 = [0, 0, 0]
+    expected3 = np.array([
+        [1, 0],
+        [1, 0],
+        [1, 0]
+    ])
+    assert np.array_equal(one_hot_encode(vector3), expected3), "Test 3 Failed"
+
+    print("All tests passed!")
+
+# Run the tests
+test_one_hot_encode()
