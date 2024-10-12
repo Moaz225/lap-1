@@ -1,0 +1,47 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def draw_rectangle(a, b, m, n, rectangle_color, background_color):
+    """
+    Draws a rectangle of size (a, b) on an image of size (m, n).
+    
+    Parameters:
+    a (int): Width of the rectangle.
+    b (int): Height of the rectangle.
+    m (int): Width of the image.
+    n (int): Height of the image.
+    rectangle_color (tuple): Color of the rectangle in RGB.
+    background_color (tuple): Background color of the image in RGB.
+    """
+    image = np.zeros((n, m, 3), dtype=np.uint8)
+    image[:,:] = background_color
+    image[(n//2 - b//2):(n//2 + (b+1)//2), (m//2 - a//2):(m//2 + (a+1)//2)] = rectangle_color
+    plt.imshow(image)
+    plt.axis('off')
+    plt.show()
+
+def draw_ellipse(a, b, m, n, ellipse_color, background_color):
+    """
+    Draws an ellipse with semi-axes a and b on an image of size (m, n).
+    
+    Parameters:
+    a (int): Semi-major axis of the ellipse.
+    b (int): Semi-minor axis of the ellipse.
+    m (int): Width of the image.
+    n (int): Height of the image.
+    ellipse_color (tuple): Color of the ellipse in RGB.
+    background_color (tuple): Background color of the image in RGB.
+    """
+    y, x = np.ogrid[:n, :m]
+    center_x, center_y = m // 2, n // 2
+    mask = ((x - center_x)**2 / a**2) + ((y - center_y)**2 / b**2) <= 1
+    image = np.zeros((n, m, 3), dtype=np.uint8)
+    image[:, :] = background_color
+    image[mask] = ellipse_color
+    plt.imshow(image)
+    plt.axis('off')
+    plt.show()
+
+# Example usage:
+draw_rectangle(100, 50, 300, 200, (255, 0, 0), (0, 0, 255))  # Red rectangle, blue background
+draw_ellipse(100, 50, 300, 200, (0, 255, 0), (0, 0, 0))  # Green ellipse, black background
